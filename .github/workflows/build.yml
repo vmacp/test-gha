@@ -32,4 +32,4 @@ jobs:
         run: |
           echo "Event: $GITHUB_EVENT_NAME"
           echo "GCP project: ${GCP_PROJECT}"
-          echo "env: ${{ github.env.GCP_PROJECT }}"
+          echo "env: ${{ case(github.event_name == 'workflow_dispatch', inputs.gcp_project, 'cicdga-r') }}"
