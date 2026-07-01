@@ -34,4 +34,4 @@ jobs:
           echo "GCP project: ${GCP_PROJECT}"
           echo "env: ${{ case(github.event_name == 'workflow_dispatch', inputs.gcp_project, 'cicdga-r') }}"
           echo 'ref_name: ${{ github.ref_name }}'
-          echo "${{ case(github.event_name == 'workflow_dispatch', github.ref_name, github.head_ref ) }}"
+          echo "smart branch name: ${{ case(github.event_name == 'workflow_dispatch', github.ref_name, github.head_ref ) }}"
