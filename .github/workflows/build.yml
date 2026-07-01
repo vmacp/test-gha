@@ -1,0 +1,33 @@
+---
+name: Build
+run-name: "Build (${{ github.actor }})"
+
+"on":
+  workflow_dispatch:
+    inputs:
+      gcp_project:
+        description: 'GCP project'
+        required: true
+        default: cicdga-r
+        type: choice
+        options:
+          - cicdga-r
+          - cicdga-g
+  pull_request:
+    types:
+      - labeled
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@main
+      - name: Build step
+        env:
+          GCP_PROJECT: ${{ case(github.event_name == 'workflow_dispatch', inputs.gcp_project, 'cicdga-r') }}
+        run: |
+          echo "Event: $GITHUB_EVENT_NAME"
+          echo "GCP project: ${GCP_PROJECT}"
